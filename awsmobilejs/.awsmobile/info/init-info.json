@@ -1,0 +1,328 @@
+{
+	"projectPath": "C:\\Users\\RYAN\\Documents\\Projects\\War3Keys",
+	"mobileProjectID": "2fff6068-03d9-45e8-8ddf-cc85490f646e",
+	"backupAWSMobileJSDirPath": "C:\\Users\\RYAN\\Documents\\Projects\\War3Keys\\~awsmobilejs-2018-07-22-12-36-22",
+	"projectInfo": {
+		"ProjectName": "War3Keys",
+		"ProjectPath": "C:\\Users\\RYAN\\Documents\\Projects\\War3Keys",
+		"InitializationTime": "",
+		"LastConfigurationTime": "",
+		"LastNPMInstallTime": "",
+		"FrontendLastBuildTime": "",
+		"LastPublishTime": "",
+		"BackendLastSyncTime": "",
+		"BackendLastBuildTime": "",
+		"BackendLastPushTime": "",
+		"BackendProjectID": "",
+		"BackendProjectName": "",
+		"BackendProjectConsoleUrl": "",
+		"BackendProjectCreationTime": "",
+		"BackendProjectLastUpdatedTime": "",
+		"Framework": "react"
+	},
+	"projectConfig": {
+		"SourceDir": "app",
+		"DistributionDir": "app/dist",
+		"BuildCommand": "npm run build",
+		"StartCommand": "npm run dev"
+	},
+	"backendProject": {
+		"apps": {
+			"web": {
+				"backend-class": "AppDO"
+			}
+		},
+		"features": {
+			"content-delivery": {
+				"attributes": {
+					"enabled": true,
+					"visibility": "public-global"
+				},
+				"components": {
+					"release": {
+						"backend-class": "Bucket"
+					}
+				},
+				"backend-class": "ContentDelivery"
+			},
+			"database": {
+				"components": {
+					"database-nosql": {
+						"backend-class": "NoSQLDatabase"
+					}
+				},
+				"backend-class": "Database"
+			},
+			"mobile-analytics": {
+				"components": {
+					"analytics": {
+						"backend-class": "PinpointAnalytics"
+					}
+				},
+				"backend-class": "Pinpoint"
+			},
+			"sign-in": {
+				"attributes": {
+					"enabled": true,
+					"optional-sign-in": true
+				},
+				"components": {
+					"sign-in-user-pools": {
+						"attributes": {
+							"alias-attributes": [],
+							"mfa-configuration": "OFF",
+							"name": "userpool",
+							"password-policy": {
+								"min-length": "6",
+								"require-lower-case": false,
+								"require-numbers": false,
+								"require-symbols": false,
+								"require-upper-case": false,
+								"backend-class": "ConvertibleMap"
+							},
+							"standard-attributes": "[]"
+						},
+						"backend-class": "UserPoolsIdentityProvider"
+					}
+				},
+				"backend-class": "SignIn"
+			}
+		},
+		"name": "War3Keys",
+		"region": "us-east-2",
+		"backend-class": "Project"
+	},
+	"packageJson": {
+		"name": "war3keys",
+		"productName": "War3Keys",
+		"version": "1.0.0",
+		"description": "Warcraft 3 Hotkey Manager",
+		"main": "main.js",
+		"scripts": {
+			"test": "cross-env NODE_ENV=test node --harmony --trace-warnings ./test/runTests.js",
+			"test-all": "npm run test && npm run build && npm run test-e2e",
+			"test-watch": "npm test -- --watch",
+			"test-e2e": "cross-env NODE_ENV=test node --harmony --trace-warnings ./test/runTests.js e2e",
+			"hot-server": "cross-env NODE_ENV=development ts-node server.ts",
+			"build-main": "cross-env NODE_ENV=production node ./node_modules/webpack/bin/webpack --config webpack.config.electron.js --harmony --progress --profile --colors",
+			"build-renderer": "cross-env NODE_ENV=production node ./node_modules/webpack/bin/webpack --config webpack.config.production.js --harmony --progress --profile --colors",
+			"build": "npm run build-main && npm run build-renderer",
+			"start": "cross-env NODE_ENV=production electron ./app/",
+			"start-hot": "cross-env HOT=1 NODE_ENV=development electron ./app/",
+			"package": "npm run build && build --publish never",
+			"package-win": "npm run build && build --win --x64",
+			"package-linux": "npm run build && build --linux",
+			"package-all": "npm run build && build -mwl",
+			"dev": "npm-run-all --parallel hot-server start-hot",
+			"cleanup": "mop -v"
+		},
+		"jest": {
+			"moduleNameMapper": {
+				"\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/fileMock.js",
+				"\\.(css|less|sass|scss)$": "identity-obj-proxy"
+			},
+			"moduleFileExtensions": [
+				"ts",
+				"tsx",
+				"js"
+			],
+			"moduleDirectories": [
+				"node_modules",
+				"app/node_modules"
+			],
+			"transform": {
+				"^.+\\.(ts|tsx)$": "<rootDir>/test/preprocessor.js"
+			},
+			"testMatch": [
+				"**/?(*.)(spec|test).ts?(x)"
+			]
+		},
+		"build": {
+			"productName": "War3Keys",
+			"appId": "io.github.drdgvhbh.War3Keys",
+			"dmg": {
+				"contents": [{
+						"x": 410,
+						"y": 150,
+						"type": "link",
+						"path": "/Applications"
+					},
+					{
+						"x": 130,
+						"y": 150,
+						"type": "file"
+					}
+				]
+			},
+			"files": [
+				"dist/",
+				"node_modules/",
+				"app.html",
+				"main.js",
+				"main.js.map",
+				"package.json"
+			],
+			"directories": {
+				"buildResources": "resources",
+				"output": "release"
+			},
+			"win": {
+				"target": "nsis"
+			},
+			"linux": {
+				"target": [
+					"deb",
+					"AppImage"
+				]
+			}
+		},
+		"bin": {
+			"electron": "./node_modules/.bin/electron"
+		},
+		"repository": {
+			"type": "git",
+			"url": "git+https://github.com/drdgvhbh/War3Keys.git"
+		},
+		"author": {
+			"name": "Ryan Lee",
+			"email": "drdgvhbh@gmail.com",
+			"url": "https://github.com/drdgvhbh"
+		},
+		"license": "MIT",
+		"bugs": {
+			"url": "https://github.com/drdgvhbh/War3Keys/issues"
+		},
+		"keywords": [
+			"electron",
+			"boilerplate",
+			"react",
+			"react-router",
+			"flux",
+			"webpack",
+			"react-hot"
+		],
+		"homepage": "https://github.com/drdgvhbh/War3Keys#readme",
+		"devDependencies": {
+			"@types/enzyme": "^3.1.1",
+			"@types/express": "^4.16.0",
+			"@types/history": "^4.5.2",
+			"@types/i18next": "^8.4.3",
+			"@types/i18next-browser-languagedetector": "^2.0.1",
+			"@types/jest": "^23.1.4",
+			"@types/lodash": "^4.14.110",
+			"@types/minimist": "^1.2.0",
+			"@types/node": "^10.5.2",
+			"@types/react": "^16.4.6",
+			"@types/react-dom": "16.0.6",
+			"@types/react-hot-loader": "^4.1.0",
+			"@types/react-i18next": "^7.6.1",
+			"@types/react-redux": "^6.0.3",
+			"@types/react-router": "^4.0.11",
+			"@types/react-router-dom": "^4.0.7",
+			"@types/react-router-redux": "^5.0.2",
+			"@types/redux-logger": "^3.0.0",
+			"@types/sinon": "^5.0.1",
+			"@types/webpack": "^4.4.7",
+			"@types/webpack-dev-middleware": "^2.0.2",
+			"@types/webpack-hot-middleware": "^2.16.4",
+			"asar": "^0.14.0",
+			"awesome-typescript-loader": "^5.2.0",
+			"babel-cli": "^6.26.0",
+			"babel-core": "^6.26.3",
+			"babel-loader": "^7.1.5",
+			"babel-preset-env": "^1.7.0",
+			"babel-preset-react": "^6.24.1",
+			"boiler-room-custodian": "^0.6.2",
+			"concurrently": "^3.1.0",
+			"cross-env": "^5.0.1",
+			"css-loader": "^1.0.0",
+			"css-modules-require-hook": "^4.0.6",
+			"devtron": "^1.4.0",
+			"electron": "2.0.4",
+			"electron-builder": "^20.19.2",
+			"electron-builder-http": "^19.15.0",
+			"electron-devtools-installer": "^2.0.1",
+			"enzyme": "^3.0.0",
+			"enzyme-adapter-react-16": "^1.0.0",
+			"eslint": "^5.1.0",
+			"eslint-config-airbnb": "^17.0.0",
+			"eslint-plugin-import": "^2.13.0",
+			"eslint-plugin-jsx-a11y": "^6.1.1",
+			"eslint-plugin-react": "^7.10.0",
+			"express": "^4.14.0",
+			"extract-text-webpack-plugin": "^4.0.0-beta.0",
+			"graphql-code-generator": "^0.10.3",
+			"graphql-codegen-typescript-template": "^0.10.3",
+			"html-webpack-plugin": "^3.2.0",
+			"identity-obj-proxy": "^3.0.0",
+			"jest": "^23.3.0",
+			"json-loader": "^0.5.4",
+			"node-sass": "^4.1.1",
+			"npm-run-all": "^4.1.3",
+			"react-hot-loader": "^4.3.3",
+			"react-test-renderer": "^16.0.0",
+			"redux-logger": "^3.0.6",
+			"sass-loader": "^7.0.3",
+			"serverless-appsync-plugin": "^1.0.1",
+			"sinon": "^6.1.3",
+			"source-map-loader": "^0.2.3",
+			"spectron": "^3.4.1",
+			"style-loader": "^0.21.0",
+			"ts-loader": "^4.4.2",
+			"ts-node": "^7.0.0",
+			"ts-transform-graphql-tag": "^0.1.3",
+			"tslint": "^5.10.0",
+			"typescript": "^2.9.2",
+			"url-loader": "^1.0.1",
+			"webpack-cli": "^3.0.8",
+			"webpack-dev-middleware": "^3.1.3",
+			"webpack-hot-middleware": "^2.13.2",
+			"webpack-merge": "^4.1.1"
+		},
+		"dependencies": {
+			"@aws-amplify/analytics": "^1.0.2",
+			"@aws-amplify/api": "^1.0.2",
+			"@aws-amplify/auth": "^1.0.2",
+			"@aws-amplify/interactions": "^1.0.2",
+			"@aws-amplify/pubsub": "^1.0.2",
+			"@aws-amplify/storage": "^1.0.2",
+			"@material-ui/core": "^1.3.1",
+			"@material-ui/icons": "^1.1.0",
+			"apollo-boost": "^0.1.10",
+			"aws-amplify": "^1.0.2",
+			"aws-amplify-react": "^1.0.2",
+			"aws-appsync": "^1.3.1",
+			"aws-appsync-react": "^1.1.1",
+			"electron-debug": "^2.0.0",
+			"font-awesome": "^4.7.0",
+			"graphql": "^0.13.2",
+			"graphql-tag": "^2.9.2",
+			"history": "^4.6.1",
+			"i18next": "^11.3.3",
+			"i18next-browser-languagedetector": "^2.2.0",
+			"lodash": "^4.17.10",
+			"material-ui-image": "^3.0.0",
+			"react": "^16.4.1",
+			"react-apollo": "^2.1.9",
+			"react-dom": "^16.4.1",
+			"react-i18next": "^7.8.0",
+			"react-image": "^1.3.1",
+			"react-redux": "^5.0.1",
+			"react-router": "^4.1.1",
+			"react-router-dom": "^4.1.1",
+			"react-router-redux": "^5.0.0-alpha.6",
+			"redux": "^4.0.0",
+			"redux-thunk": "^2.1.0",
+			"serverless-appsync-plugin": "^1.0.1",
+			"source-map-support": "^0.5.0",
+			"webpack": "^4.15.1"
+		},
+		"devEngines": {
+			"node": ">=6.x",
+			"npm": ">=3.x"
+		}
+	},
+	"framework": "react",
+	"initialStage": "backend-valid",
+	"strategy": "link"
+}
