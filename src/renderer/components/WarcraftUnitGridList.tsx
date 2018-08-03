@@ -8,9 +8,11 @@ import { WarcraftUnit } from 'warcraft3-unit-data';
 
 const styles = createStyles({
   root: {
+    flexGrow: 1,
+  },
+  flex: {
     display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    flexGrow: 1,
   },
 });
 
@@ -29,7 +31,7 @@ class WarcraftUnitGridList extends React.Component<Props, State> {
 
     return (
       <div className={classes.root}>
-        <GridList cols={cols} cellHeight="auto">
+        <GridList cols={cols} cellHeight="auto" className={classes.flex}>
           <GridListTile key="Subheader" cols={cols} style={{ height: 'auto' }}>
             <ListSubheader component="div">
               <Typography variant="title" color="inherit">

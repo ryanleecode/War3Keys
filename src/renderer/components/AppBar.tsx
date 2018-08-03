@@ -7,10 +7,11 @@ import * as React from 'react';
 
 const styles = theme => createStyles({
   root: {
-    flewGrow: 1,
+    display: 'flex',
+    flexGrow: 1,
   },
   flex: {
-    flex: 1,
+    flexGrow: 1,
   },
   button: {
     margin: theme.spacing.unit,

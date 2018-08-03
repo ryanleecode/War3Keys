@@ -101,6 +101,7 @@
     "electron-debug": "^2.0.0",
     "electron-devtools-installer": "^2.2.4",
     "electron-is-dev": "^0.3.0",
+    "flexbox-react": "^4.4.0",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
     "lodash": "^4.17.10",
@@ -123,5 +124,10 @@
     "*.ts",
     "dist",
     "node_modules"
-  ]
+  ],
+  "electronWebpack": {
+    "renderer": {
+      "webpackConfig": "webpack.renderer.additions.js"
+    }
+  }
 }

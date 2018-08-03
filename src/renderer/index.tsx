@@ -11,6 +11,12 @@ import { ApolloProvider } from 'react-apollo';
 import { ConnectedRouter } from 'connected-react-router';
 import Rehydrated from './Rehydrated';
 import awsExports from './aws-exports';
+import AppBar from './components/AppBar';
+
+// Importing this using import statements will break the typescript
+const Flexbox = require('flexbox-react').default;
+console.log(Flexbox);
+import './global.scss';
 
 Amplify.configure(awsExports);
 
@@ -46,7 +52,15 @@ ReactDOM.render(
       <Rehydrated>
         <Provider store={store}>
           <ConnectedRouter history={history}>
-            <Router />
+            <Flexbox flexDirection="column" minHeight="100vh" alignItems="stretch" >
+              <Flexbox element="header">
+                <AppBar />
+              </Flexbox>
+              <Flexbox flexGrow={1}>
+                <Router />
+              </Flexbox>
+              <Flexbox element="footer" />
+            </Flexbox>
           </ConnectedRouter>
         </Provider>
       </Rehydrated>

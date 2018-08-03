@@ -10,7 +10,7 @@ import { WarcraftUnit } from 'warcraft3-unit-data';
 
 const styles = createStyles({
   icon: {
-    color: 'rgba($color: #ffffff, $alpha: 0.54)',
+    color: 'rgba(255, 255, 255, 0.54)',
   },
 });
 
