@@ -14,7 +14,11 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 let mainWindow;
 
 async function createMainWindow() {
-  const window = new BrowserWindow();
+  const window = new BrowserWindow({
+    webPreferences: {
+      webSecurity: false,
+    },
+  });
   if (isDevelopment) {
     await installExtension(REACT_DEVELOPER_TOOLS);
     await installExtension(REDUX_DEVTOOLS);

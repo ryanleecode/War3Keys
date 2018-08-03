@@ -2,6 +2,7 @@
   "defaultSeverity": "error",
   "extends": ["tslint-config-airbnb", "tslint-react"],
   "rules": {
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "jsx-no-multiline-js": false
   }
 }

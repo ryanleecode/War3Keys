@@ -1,9 +1,16 @@
 import * as React from 'react';
+import WarcraftUnitGridList from '../components/WarcraftUnitGridList';
+import { humanUnits } from 'warcraft3-unit-data';
+import { withAuthenticator } from 'aws-amplify-react';
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   public render() {
     return (
-      <div />
+      <div>
+        <WarcraftUnitGridList units={humanUnits} />
+      </div>
     );
   }
 }
+
+export default withAuthenticator(Home);
