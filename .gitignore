@@ -1,0 +1,24 @@
+# output
+/dist
+/.cache
+/.coverage
+/app/renderer/.parcel
+/app/main/main.js
+*.map
+
+# dependencies
+/node_modules
+
+# logs
+*.log
+
+app/renderer/AppSync\.js
+
+#awsmobilejs
+appsync-info.json
+aws-info.json
+project-info.json
+aws-exports.*
+awsmobilejs/.awsmobile/backend-build
+awsmobilejs/\#current-backend-info
+~awsmobilejs-*/

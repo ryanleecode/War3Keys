@@ -1,0 +1,6 @@
+{
+	"SourceDir": "src",
+	"DistributionDir": "src/dist",
+	"BuildCommand": "npm run build",
+	"StartCommand": "npm run dev"
+}
