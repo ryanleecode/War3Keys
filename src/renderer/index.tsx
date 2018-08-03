@@ -13,9 +13,10 @@ import Rehydrated from './Rehydrated';
 import awsExports from './aws-exports';
 import AppBar from './components/AppBar';
 
-// Importing this using import statements will break the typescript
+// Importing this using import statements will break TypeScript
+// tslint:disable-next-line:variable-name
 const Flexbox = require('flexbox-react').default;
-console.log(Flexbox);
+
 import './global.scss';
 
 Amplify.configure(awsExports);
