@@ -12,6 +12,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import Rehydrated from './Rehydrated';
 import awsExports from './aws-exports';
 import AppBar from './components/AppBar';
+import { HotkeyGraphQLProvider } from './components/context';
 
 // Importing this using import statements will break TypeScript
 // tslint:disable-next-line:variable-name
@@ -52,17 +53,19 @@ ReactDOM.render(
     <ApolloProvider client={client as any} >
       <Rehydrated>
         <Provider store={store}>
-          <ConnectedRouter history={history}>
-            <Flexbox flexDirection="column" minHeight="100vh" alignItems="stretch" >
-              <Flexbox element="header">
-                <AppBar />
+          <HotkeyGraphQLProvider>
+            <ConnectedRouter history={history}>
+              <Flexbox flexDirection="column" minHeight="100vh" alignItems="stretch" >
+                <Flexbox element="header">
+                  <AppBar />
+                </Flexbox>
+                <Flexbox flexGrow={1}>
+                  <Router />
+                </Flexbox>
+                <Flexbox element="footer" />
               </Flexbox>
-              <Flexbox flexGrow={1}>
-                <Router />
-              </Flexbox>
-              <Flexbox element="footer" />
-            </Flexbox>
-          </ConnectedRouter>
+            </ConnectedRouter>
+          </HotkeyGraphQLProvider>
         </Provider>
       </Rehydrated>
     </ApolloProvider>

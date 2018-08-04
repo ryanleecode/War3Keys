@@ -1,5 +1,10 @@
-import { createBrowserHistory } from 'history';
+import { createBrowserHistory, History, createHashHistory } from 'history';
 
-const history = createBrowserHistory();
+let history: History;
+if (process.env.NODE_ENV === 'production') {
+  history  = createBrowserHistory();
+} else {
+  history = createHashHistory();
+}
 
 export default history;
