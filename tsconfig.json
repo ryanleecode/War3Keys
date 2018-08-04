@@ -23,9 +23,16 @@
     "allowJs": true,
     "strictNullChecks": true,
     "skipLibCheck": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "baseUrl": "./src",
+    "paths": {
+      "@renderer/*": [
+        "renderer/*"
+      ]
+    }
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ]
 }
