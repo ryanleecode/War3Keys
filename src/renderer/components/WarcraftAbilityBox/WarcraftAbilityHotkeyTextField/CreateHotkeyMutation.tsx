@@ -18,8 +18,8 @@ export default class CreateHotkeyMutation extends React.Component<QueryParamProp
             <Mutation
               mutation={createHotkeyMutation}
               update={(cache, result) => {
-                const cacheResult = cache.readQuery(queryParams) as QuerySchema;
-                const { getHotkeyByAbilityId: hotkeyConnection } = cacheResult;
+                const cacheResult = cache.readQuery<QuerySchema>(queryParams);
+                const { getHotkeyByAbilityId: hotkeyConnection } = cacheResult!;
                 const { createHotkey: inputHotkeyPayload }
                   = ((result as any).data as MutationSchema);
                 hotkeyConnection!.items = [inputHotkeyPayload!];
