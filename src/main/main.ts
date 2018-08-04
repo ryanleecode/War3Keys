@@ -7,6 +7,12 @@ import {
 import { BrowserWindow, app } from 'electron';
 import * as path from 'path';
 
+require('electron-context-menu')({
+  prepend: (params, browserWindow) => [{
+    label: 'Rainbow',
+    visible: params.mediaType === 'image',
+  }],
+});
 require('electron-debug')({ devToolsMode: 'right' });
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
@@ -22,13 +28,7 @@ async function createMainWindow() {
   if (isDevelopment) {
     await installExtension(REACT_DEVELOPER_TOOLS);
     await installExtension(REDUX_DEVTOOLS);
-  }
-
-  if (isDevelopment) {
     window.webContents.openDevTools();
-  }
-
-  if (isDevelopment) {
     window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`);
   } else {
     window.loadURL(format({
