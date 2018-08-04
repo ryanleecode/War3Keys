@@ -4,6 +4,7 @@ import {
 import { SaveAltOutlined } from '@material-ui/icons';
 import { default as MenuIcon } from '@material-ui/icons/Menu';
 import * as React from 'react';
+import { ExportHotkeysConsumer } from './ExportHotkeys';
 
 const styles = theme => createStyles({
   root: {
@@ -35,22 +36,27 @@ class War3KeysAppBar extends React.Component<Props> {
             <Typography className={classes.flex} variant="title" color="inherit">
               War3Keys
             </Typography>
-            <Button
-              variant="contained"
-              color="default"
-              className={classes.button}
-            >
-              <Grid container={true} spacing={8} alignContent="center" alignItems="center">
-                <Grid item={true}>
-                  <Typography>
-                    Export
-                  </Typography>
-                </Grid>
-                <Grid item={true}>
-                  <SaveAltOutlined />
-                </Grid>
-              </Grid>
-            </Button>
+            <ExportHotkeysConsumer>
+              {exportHotkeys =>
+                <Button
+                  variant="contained"
+                  color="default"
+                  className={classes.button}
+                  onClick={async () => exportHotkeys()}
+                >
+                  <Grid container={true} spacing={8} alignContent="center" alignItems="center">
+                    <Grid item={true}>
+                      <Typography>
+                        Export
+                      </Typography>
+                    </Grid>
+                    <Grid item={true}>
+                      <SaveAltOutlined />
+                    </Grid>
+                  </Grid>
+                </Button>}
+
+            </ExportHotkeysConsumer>
           </Toolbar>
         </AppBar>
       </div>
