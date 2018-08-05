@@ -31,6 +31,9 @@ async function createMainWindow() {
     window.webContents.openDevTools();
     window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`);
   } else {
+    await installExtension(REACT_DEVELOPER_TOOLS);
+    await installExtension(REDUX_DEVTOOLS);
+    window.webContents.openDevTools();
     window.loadURL(format({
       pathname: path.join(__dirname, 'index.html'),
       protocol: 'file',
