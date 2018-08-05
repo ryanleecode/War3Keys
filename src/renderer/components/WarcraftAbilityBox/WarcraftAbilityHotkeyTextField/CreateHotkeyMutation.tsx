@@ -13,7 +13,7 @@ export default class CreateHotkeyMutation extends React.Component<QueryParamProp
     return (
       <HotkeyConsumer>
         {(schema) => {
-          const { updateHotkey: createHotkeyMutation } = schema;
+          const { createHotkey: createHotkeyMutation } = schema;
           return (
             <Mutation
               mutation={createHotkeyMutation}

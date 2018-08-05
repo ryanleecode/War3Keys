@@ -5,14 +5,13 @@ import { default as Amplify, Auth } from 'aws-amplify';
 import { default as AWSAppSyncClient, AUTH_TYPE } from 'aws-appsync/lib';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 import { default as appSyncConfig } from './AppSync';
-import Router from './Router';
 import { Provider } from 'react-redux';
 import { ApolloProvider } from 'react-apollo';
 import { ConnectedRouter } from 'connected-react-router';
 import Rehydrated from './Rehydrated';
 import awsExports from './aws-exports';
-import AppBar from './components/AppBar';
 import { HotkeyGraphQLProvider } from './components/context';
+import Shell from './Shell';
 
 // Importing this using import statements will break TypeScript
 // tslint:disable-next-line:variable-name
@@ -56,13 +55,9 @@ ReactDOM.render(
           <HotkeyGraphQLProvider>
             <ConnectedRouter history={history}>
               <Flexbox flexDirection="column" minHeight="100vh" alignItems="stretch" >
-                <Flexbox element="header">
-                  <AppBar />
-                </Flexbox>
                 <Flexbox flexGrow={1}>
-                  <Router />
+                  <Shell />
                 </Flexbox>
-                <Flexbox element="footer" />
               </Flexbox>
             </ConnectedRouter>
           </HotkeyGraphQLProvider>

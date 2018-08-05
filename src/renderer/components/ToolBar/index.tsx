@@ -1,6 +1,7 @@
 import * as React from 'react';
-import War3KeysAppBar from './War3KeysAppBar';
+import War3KeysToolBar from './War3KeysToolBar';
 import { ExportHotkeysProvider } from './ExportHotkeys';
+import { IconButtonProps } from '@material-ui/core/IconButton';
 import {
   createStyles, withStyles, WithStyles,
 } from '@material-ui/core';
@@ -13,16 +14,19 @@ const styles = theme => createStyles({
 });
 
 interface Props extends WithStyles<typeof styles> {
+  iconButton?: JSX.Element;
 }
 
-class DecoratedAppBar extends React.Component<Props> {
+class DecoratedToolBar extends React.Component<Props> {
   public render() {
+    const { iconButton } = this.props;
+
     return (
       <ExportHotkeysProvider>
-        <War3KeysAppBar />
+        <War3KeysToolBar iconButton={iconButton} />
       </ExportHotkeysProvider>
     );
   }
 }
 
-export default withStyles(styles)(DecoratedAppBar);
+export default withStyles(styles)(DecoratedToolBar);

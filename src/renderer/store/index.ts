@@ -10,6 +10,5 @@ const storeFactory = (() => {
 })();
 
 const store = storeFactory.create();
-
 export { history };
 export default store;

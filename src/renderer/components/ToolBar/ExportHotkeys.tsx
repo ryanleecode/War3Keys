@@ -3,8 +3,10 @@ import { ApolloConsumer } from 'react-apollo';
 import { ApolloClient } from 'apollo-client';
 import { default as gql } from 'graphql-tag';
 import { QuerySchema } from '@renderer/api';
+import * as path from 'path';
 import { remote } from 'electron';
 import { default as getPath } from 'platform-folders';
+import * as jetpack from 'fs-jetpack';
 
 const { dialog } = remote;
 
@@ -28,14 +30,28 @@ class ExportHotkeysProvider extends React.Component {
   public async getHotkeys(client: ApolloClient<any>) {
     const { data } = await client.query<QuerySchema>({
       query: GET_HOTKEYS,
+      fetchPolicy: 'network-only',
     });
     const { items } = data.listHotkeys!;
-    console.log(items);
-    console.log(getPath('documents'));
-    dialog.showSaveDialog({
-      defaultPath: `${getPath('documents')}/Warcraft III/CustomKeyBindings/CustomKeys.txt`,
-      filters: [{ name: 'Text Document', extensions: ['txt'] }],
-    });
+    const defaultPath = path.join(
+      getPath('documents'),
+      'Warcraft III',
+      'CustomKeyBindings',
+      'CustomKeys.txt');
+    dialog.showSaveDialog(
+      {
+        defaultPath,
+        filters: [{ name: 'Text Document', extensions: ['txt'] }],
+      },
+      (fileName) => {
+        if (fileName) {
+          const customHotkeysAsString = items!.map((hotkeyConnection) => {
+            const { abilityId, hotkey } = hotkeyConnection;
+            return `[${abilityId}]\nHotkey=${hotkey}\nResearchhotkey=${hotkey}\n`;
+          });
+          jetpack.write(fileName, customHotkeysAsString.join(''));
+        }
+      });
   }
 
   public render() {

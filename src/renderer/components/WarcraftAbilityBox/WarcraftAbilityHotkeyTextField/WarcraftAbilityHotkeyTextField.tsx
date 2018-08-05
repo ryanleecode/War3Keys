@@ -75,7 +75,6 @@ class AbilityHotkeyTextField extends React.Component<Props> {
                             variables: { abilityId, hotkey: input },
                           });
                         }
-                        refetch();
                       }}
                       InputProps={{
                         classes: {

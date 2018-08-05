@@ -20,9 +20,7 @@ export default class DeleteHotkeyMutation extends React.Component<QueryParamProp
               ignoreResults={true}
               update={(cache) => {
                 const cacheResult = cache.readQuery<QuerySchema>(queryParams);
-                const {
-                  getHotkeyByAbilityId: hotkeyConnection,
-                } = cacheResult!;
+                const { getHotkeyByAbilityId: hotkeyConnection } = cacheResult!;
                 hotkeyConnection!.items = [];
                 hotkeyConnection!.nextToken = null;
                 cache.writeQuery({ ...queryParams, data: cacheResult });
