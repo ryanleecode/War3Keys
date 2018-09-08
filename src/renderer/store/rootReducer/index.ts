@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
+import { unitReducer, unitActions } from './units';
 
-const rootReducer = combineReducers({ trash });
+const rootReducer = combineReducers({ unitReducer });
 
-function trash(state = {}, action) {
-  return state;
-}
+const actions = {
+  unitActions,
+};
 
+export { actions };
 export default rootReducer;

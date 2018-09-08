@@ -1,12 +1,11 @@
 import * as React from 'react';
 import War3KeysToolBar from './War3KeysToolBar';
 import { ExportHotkeysProvider } from './ExportHotkeys';
-import { IconButtonProps } from '@material-ui/core/IconButton';
 import {
-  createStyles, withStyles, WithStyles,
+  createStyles, withStyles, WithStyles, Theme,
 } from '@material-ui/core';
 
-const styles = theme => createStyles({
+const styles = (theme: Theme) => createStyles({
   root: {
     display: 'flex',
     flexGrow: 1,

@@ -1,5 +1,5 @@
 import {
-  AppBar, Button, createStyles, Grid, IconButton, Toolbar, Typography, withStyles, WithStyles,
+  Button, createStyles, Grid, IconButton, Toolbar, Typography, withStyles, WithStyles,
 } from '@material-ui/core';
 import { SaveAltOutlined } from '@material-ui/icons';
 import { default as MenuIcon } from '@material-ui/icons/Menu';

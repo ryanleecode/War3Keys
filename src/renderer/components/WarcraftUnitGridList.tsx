@@ -1,5 +1,5 @@
 import {
-  createStyles, GridList, GridListTile, ListSubheader, Typography, withStyles, WithStyles,
+  createStyles, GridList, GridListTile, withStyles, WithStyles,
 } from '@material-ui/core';
 import withWidth, { isWidthUp, WithWidthProps } from '@material-ui/core/withWidth';
 import * as React from 'react';
@@ -13,6 +13,12 @@ const styles = createStyles({
   flex: {
     display: 'flex',
     flexGrow: 1,
+  },
+  tile: {
+    minWidth: '166.66px',
+    minHeight: '166.66px',
+    maxHeight: '200px',
+    maxWidth: '200px',
   },
 });
 
@@ -32,17 +38,10 @@ class WarcraftUnitGridList extends React.Component<Props, State> {
     return (
       <div className={classes.root}>
         <GridList cols={cols} cellHeight="auto" className={classes.flex}>
-          <GridListTile key="Subheader" cols={cols} style={{ height: 'auto' }}>
-            <ListSubheader component="div">
-              <Typography variant="title" color="inherit">
-                Human
-              </Typography>
-            </ListSubheader>
-          </GridListTile>
           {units.map((unit) => {
             const { title } = unit;
             return (
-              <GridListTile key={title}>
+              <GridListTile key={title} className={classes.tile}>
                 <WarcraftUnitGridListTile warcraftUnit={unit} />
               </GridListTile>
             );

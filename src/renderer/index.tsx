@@ -24,14 +24,14 @@ Amplify.configure(awsExports);
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#212121',
-      light: '#484848',
-      dark: '#000000',
+      main: '#263238',
+      light: '#4f5b62',
+      dark: '#000a12',
     },
     secondary: {
-      main: '#4e342e',
-      light: '#7b5e57',
-      dark: '#260e04',
+      main: '#eceff1',
+      light: '#ffffff',
+      dark: '#babdbe',
     },
   },
 });

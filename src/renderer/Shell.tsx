@@ -8,12 +8,12 @@ import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
 import { default as MenuIcon } from '@material-ui/icons/Menu';
-import { createStyles, WithStyles } from '@material-ui/core';
+import { createStyles, WithStyles, Theme } from '@material-ui/core';
 import Router from './Router';
 
 const drawerWidth = 240;
 
-const styles = theme => createStyles({
+const styles = (theme: Theme) => createStyles({
   root: {
     flexGrow: 1,
     zIndex: 1,
@@ -32,6 +32,7 @@ const styles = theme => createStyles({
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
+    backgroundColor: theme.palette.secondary.main,
     width: drawerWidth,
     [theme.breakpoints.up('md')]: {
       position: 'relative',
@@ -67,9 +68,9 @@ class Shell extends React.Component<Props, State> {
       <div>
         <div className={classes.toolbar} />
         <Divider />
-        <List>
-          <NavigationList />
-        </List>
+          <List>
+            <NavigationList />
+          </List>
         <Divider />
       </div>
     );
