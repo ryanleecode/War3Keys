@@ -30,7 +30,7 @@ There are a number of problems with this. Namely, its not user friendly, its a o
 War3Keys solves all these problems by giving users a graphical interface to set custom hotkeys while also syncing them to the cloud.
 
 ## Releases
-You can find the latest release on the [releases](https://github.com/drdgvhbh/War3Keys/releases) tab. This application supports Windows, Linux, and Mac.
+You can find the latest release on the [releases](https://github.com/drdgvhbh/War3Keys/releases) tab. This application supports **Windows** and **Linux** only.
 
 ## Usage
 
