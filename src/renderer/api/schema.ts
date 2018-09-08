@@ -1,7 +1,7 @@
 /* tslint:disable */
 export const typeDefs = ['﻿type Hotkey {\n  abilityId: String!\n  hotkey: String!\n  id: ID!\n  userId: String!\n}\n\ntype HotkeyConnection {\n  items: [Hotkey]\n  nextToken: String\n}\n\ntype Mutation {\n  createHotkey(input: CreateHotkeyInput!): Hotkey\n  deleteHotkey(input: DeleteHotkeyInput!): Hotkey\n  updateHotkey(input: UpdateHotkeyInput!): Hotkey\n}\n\ntype Query {\n  getHotkey(id: ID!): Hotkey\n  getHotkeyByAbilityId(abilityId: String!): HotkeyConnection\n  listHotkeys(filter: TableHotkeyFilterInput, limit: Int, nextToken: String): HotkeyConnection\n  queryHotkeysByUserIdAbilityIdIndex(after: String, first: Int, userId: String!): HotkeyConnection\n}\n\ntype Subscription {\n  onCreateHotkey(abilityId: String, hotkey: String, id: ID, userId: String): Hotkey\n  onDeleteHotkey(abilityId: String, hotkey: String, id: ID, userId: String): Hotkey\n  onUpdateHotkey(abilityId: String, hotkey: String, id: ID, userId: String): Hotkey\n}\n\ninput CreateHotkeyInput {\n  abilityId: String!\n  hotkey: String!\n  userId: String\n}\n\ninput DeleteHotkeyInput {\n  id: ID!\n}\n\ninput TableBooleanFilterInput {\n  eq: Boolean\n  ne: Boolean\n}\n\ninput TableFloatFilterInput {\n  between: [Float]\n  contains: Float\n  eq: Float\n  ge: Float\n  gt: Float\n  le: Float\n  lt: Float\n  ne: Float\n  notContains: Float\n}\n\ninput TableHotkeyFilterInput {\n  abilityId: TableStringFilterInput\n  hotkey: TableStringFilterInput\n  id: TableIDFilterInput\n  userId: TableStringFilterInput\n}\n\ninput TableIDFilterInput {\n  beginsWith: ID\n  between: [ID]\n  contains: ID\n  eq: ID\n  ge: ID\n  gt: ID\n  le: ID\n  lt: ID\n  ne: ID\n  notContains: ID\n}\n\ninput TableIntFilterInput {\n  between: [Int]\n  contains: Int\n  eq: Int\n  ge: Int\n  gt: Int\n  le: Int\n  lt: Int\n  ne: Int\n  notContains: Int\n}\n\ninput TableStringFilterInput {\n  beginsWith: String\n  between: [String]\n  contains: String\n  eq: String\n  ge: String\n  gt: String\n  le: String\n  lt: String\n  ne: String\n  notContains: String\n}\n\ninput UpdateHotkeyInput {\n  abilityId: String\n  hotkey: String\n  id: ID!\n  userId: String\n}\n'];
 
-export interface Query {
+export interface QuerySchema {
   getHotkey: Hotkey | null;
   getHotkeyByAbilityId: HotkeyConnection | null;
   listHotkeys: HotkeyConnection | null;
@@ -74,7 +74,7 @@ export interface TableIDFilterInput {
   notContains: string | null;
 }
 
-export interface Mutation {
+export interface MutationSchema {
   createHotkey: Hotkey | null;
   deleteHotkey: Hotkey | null;
   updateHotkey: Hotkey | null;

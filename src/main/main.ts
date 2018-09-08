@@ -1,15 +1,26 @@
 import { format } from 'url';
 import {
-  default as installExtension, REACT_DEVELOPER_TOOLS,
+  default as installExtension,
+  REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS,
 } from 'electron-devtools-installer';
 
 import { BrowserWindow, app } from 'electron';
 import * as path from 'path';
 
-require('electron-debug')({ devToolsMode: 'right' });
-
 const isDevelopment = process.env.NODE_ENV !== 'production';
+
+if (isDevelopment) {
+  require('electron-context-menu')({
+    prepend: (params, browserWindow) => [
+      {
+        label: 'Rainbow',
+        visible: params.mediaType === 'image',
+      },
+    ],
+  });
+  require('electron-debug')({ devToolsMode: 'undocked' });
+}
 
 let mainWindow;
 
@@ -18,24 +29,21 @@ async function createMainWindow() {
     webPreferences: {
       webSecurity: false,
     },
+    show: false,
   });
   if (isDevelopment) {
     await installExtension(REACT_DEVELOPER_TOOLS);
     await installExtension(REDUX_DEVTOOLS);
-  }
-
-  if (isDevelopment) {
     window.webContents.openDevTools();
-  }
-
-  if (isDevelopment) {
     window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`);
   } else {
-    window.loadURL(format({
-      pathname: path.join(__dirname, 'index.html'),
-      protocol: 'file',
-      slashes: true,
-    }));
+    window.loadURL(
+      format({
+        pathname: path.join(__dirname, 'index.html'),
+        protocol: 'file',
+        slashes: true,
+      }),
+    );
   }
 
   window.on('closed', () => {
@@ -64,6 +72,27 @@ app.on('activate', async () => {
   }
 });
 
+app.on('browser-window-created', (e, window) => {
+  window.setMenu(null);
+});
+
 app.on('ready', async () => {
   mainWindow = await createMainWindow();
+  const splash = new BrowserWindow({
+    title: 'War3Keys',
+    width: 300,
+    height: 350,
+  });
+  splash.loadURL(
+    format({
+      pathname: path.join(__dirname, 'splash.html'),
+      protocol: 'file',
+      slashes: true,
+    }),
+  );
+
+  mainWindow.once('ready-to-show', () => {
+    splash.destroy();
+    mainWindow.show();
+  });
 });

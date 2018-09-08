@@ -5,17 +5,18 @@ import { default as Amplify, Auth } from 'aws-amplify';
 import { default as AWSAppSyncClient, AUTH_TYPE } from 'aws-appsync/lib';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 import { default as appSyncConfig } from './AppSync';
-import Router from './Router';
 import { Provider } from 'react-redux';
 import { ApolloProvider } from 'react-apollo';
 import { ConnectedRouter } from 'connected-react-router';
 import Rehydrated from './Rehydrated';
 import awsExports from './aws-exports';
-import AppBar from './components/AppBar';
+import { HotkeyGraphQLProvider } from './components/context';
+import Shell from './Shell';
 
-// Importing this using import statements will break the typescript
+// Importing this using import statements will break TypeScript
+// tslint:disable-next-line:variable-name
 const Flexbox = require('flexbox-react').default;
-console.log(Flexbox);
+
 import './global.scss';
 
 Amplify.configure(awsExports);
@@ -23,14 +24,14 @@ Amplify.configure(awsExports);
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#212121',
-      light: '#484848',
-      dark: '#000000',
+      main: '#263238',
+      light: '#4f5b62',
+      dark: '#000a12',
     },
     secondary: {
-      main: '#4e342e',
-      light: '#7b5e57',
-      dark: '#260e04',
+      main: '#eceff1',
+      light: '#ffffff',
+      dark: '#babdbe',
     },
   },
 });
@@ -51,17 +52,15 @@ ReactDOM.render(
     <ApolloProvider client={client as any} >
       <Rehydrated>
         <Provider store={store}>
-          <ConnectedRouter history={history}>
-            <Flexbox flexDirection="column" minHeight="100vh" alignItems="stretch" >
-              <Flexbox element="header">
-                <AppBar />
+          <HotkeyGraphQLProvider>
+            <ConnectedRouter history={history}>
+              <Flexbox flexDirection="column" minHeight="100vh" alignItems="stretch" >
+                <Flexbox flexGrow={1}>
+                  <Shell />
+                </Flexbox>
               </Flexbox>
-              <Flexbox flexGrow={1}>
-                <Router />
-              </Flexbox>
-              <Flexbox element="footer" />
-            </Flexbox>
-          </ConnectedRouter>
+            </ConnectedRouter>
+          </HotkeyGraphQLProvider>
         </Provider>
       </Rehydrated>
     </ApolloProvider>

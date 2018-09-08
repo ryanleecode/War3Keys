@@ -45,10 +45,14 @@ class WarcraftAbilityBox extends React.Component<Props> {
           />
         </Grid>
         <Grid item={true}>
-          <WarcraftAbilityHotkeyTextField
-            abilityId={abilityId}
-            defaultHotkey={defaultHotkey}
-          />
+          <Grid container={true} alignItems="center" justify="center">
+            <Grid item={true}>
+              <WarcraftAbilityHotkeyTextField
+                abilityId={abilityId}
+                defaultHotkey={defaultHotkey}
+              />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     );

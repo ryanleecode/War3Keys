@@ -2,12 +2,14 @@
   "name": "war3keys",
   "version": "1.0.0",
   "description": "Warcraft 3 Hotkeys Manager",
-  "main": "app/main/main.js",
+  "main": "src/main/main.js",
   "scripts": {
     "dev": "electron-webpack dev",
-    "build": "electron-webpack",
-    "dist": "run-s build electron-builder",
+    "clean": "rimraf dist",
+    "build": "npm run clean && electron-webpack",
+    "dist": "npm run build && electron-builder",
     "dist:dir": "npm run dist --dir -c.compression=store -c.mac.identity=null",
+    "postinstall": "electron-builder install-app-deps",
     "test:jest": "jest",
     "lint": "tslint app/**/*.ts{,x}"
   },
@@ -33,6 +35,16 @@
       "json",
       "node"
     ],
+    "build": {
+      "appId": "io.drdgvhbh.war3keys",
+      "directories":{
+        "buildResources ": "build"
+      },
+      "win": {
+        "icon": "build/icon.ico",
+        "publish": {  }
+      }
+    },
     "globals": {
       "ts-jest": {
         "useBabelrc": true
@@ -45,7 +57,8 @@
       "sourceDirectory": "src/main"
     },
     "renderer": {
-      "sourceDirectory": "src/renderer"
+      "sourceDirectory": "src/renderer",
+      "webpackConfig": "webpack.renderer.additions.js"
     }
   },
   "devDependencies": {
@@ -70,25 +83,31 @@
     "babel-plugin-dynamic-import-node": "^2.0.0",
     "babel-plugin-inline-react-svg": "^0.5.4",
     "electron": "^2.0.5",
-    "electron-builder": "^20.22.0",
+    "electron-builder": "^20.26.1",
+    "electron-rebuild": "^1.8.2",
     "electron-webpack": "^2.1.2",
     "electron-webpack-ts": "^2.0.2",
+    "file-loader": "^2.0.0",
+    "image-webpack-loader": "^4.3.1",
     "jest": "^23.4.1",
     "node-sass": "^4.9.2",
     "npm-run-all": "^4.1.3",
     "react-test-renderer": "^16.4.1",
+    "rimraf": "^2.6.2",
     "sass-loader": "^7.0.3",
+    "source-map-loader": "^0.2.3",
     "spectron": "^3.8.0",
     "ts-jest": "^23.0.1",
     "tslint": "^5.11.0",
     "tslint-config-airbnb": "^5.9.2",
     "tslint-react": "^3.6.0",
     "typescript": "^3.0.1",
-    "webpack": "^4.16.3",
-    "webpack-cli": "^3.1.0"
+    "url-loader": "^1.1.1",
+    "webpack": "^4.8.1",
+    "webpack-cli": "2.1.5"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.55",
+    "@babel/runtime": "7.0.0-beta.55",
     "@material-ui/core": "^1.4.2",
     "@material-ui/icons": "^2.0.0",
     "apollo-client": "^2.3.7",
@@ -98,36 +117,36 @@
     "aws-appsync-react": "^1.1.2",
     "connected-react-router": "^4.3.0",
     "dotenv": "^6.0.0",
+    "electron-context-menu": "^0.10.0",
     "electron-debug": "^2.0.0",
     "electron-devtools-installer": "^2.2.4",
     "electron-is-dev": "^0.3.0",
     "flexbox-react": "^4.4.0",
+    "fs-jetpack": "^2.1.0",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
+    "immer": "^1.5.0",
     "lodash": "^4.17.10",
     "material-ui-image": "^3.0.0",
+    "platform-folders": "^0.2.7",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-apollo": "^2.1.9",
     "react-dom": "^16.4.1",
+    "react-event-listener": "^0.6.1",
     "react-image": "^1.3.1",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.5",
-    "source-map-loader": "^0.2.3",
-    "warcraft3-unit-data": "^1.0.8"
+    "source-map-support": "^0.5.9",
+    "warcraft3-unit-data": "^1.3.5"
   },
   "files": [
     "*.js",
     "*.ts",
     "dist",
     "node_modules"
-  ],
-  "electronWebpack": {
-    "renderer": {
-      "webpackConfig": "webpack.renderer.additions.js"
-    }
-  }
+  ]
 }
