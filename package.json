@@ -11,7 +11,7 @@
     "dist": "yarn clean && yarn compile && electron-builder",
     "dist:all": "yarn clean && yarn compile && electron-builder --win --linux",
     "postinstall": "electron-builder install-app-deps",
-    "test:jest": "jest",
+    "test": "jest --passWithNoTests",
     "lint": "eslint src/**/*.ts{,x}",
     "lint:fix": "eslint --fix src/**/*.ts{,x}",
     "codegen": "yarn codegen:server && yarn codegen:client",
