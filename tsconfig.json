@@ -1,7 +1,7 @@
 {
   "extends": "./node_modules/electron-webpack/tsconfig-base.json",
   "compilerOptions": {
-    "outDir": "./dist/",
+    "outDir": "./dist",
     "strict": true,
     "module": "commonjs",
     "moduleResolution": "node",
@@ -24,15 +24,19 @@
     "strictNullChecks": true,
     "skipLibCheck": true,
     "noImplicitAny": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "baseUrl": "./src",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "@renderer/*": [
         "renderer/*"
       ]
-    }
+    },
+    "typeRoots": ["node_modules/@types", "src/@types"],
   },
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "files": ["src/@types/graphql.d.ts", "./src/renderer/store/RootState.ts"],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts", "dist"]
 }

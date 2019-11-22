@@ -1,3 +1,5 @@
 import RootState from './RootState';
 
-export const unitsSelector = (state: RootState) => state.unitReducer;
+export const factionSelector = (state: RootState) => state.faction;
+
+export const overridesSelector = (state: RootState) => state.overrides;

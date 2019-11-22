@@ -1,84 +1,55 @@
 import * as React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { List, ListItem, ListItemText } from '@material-ui/core';
-import { actions } from '@renderer/store';
 import {
-  humanUnits,
-  miscellaneous,
-  nightElfUnits,
-  undeadUnits,
-  orcUnits,
-  neutralUnits,
-} from 'warcraft3-unit-data';
+  List,
+  ListItem,
+  ListItemText,
+  Theme,
+  makeStyles,
+} from '@material-ui/core';
+import changecase from 'change-case';
 
-import {
-  humanSeal,
-  undeadSeal,
-  orcSeal,
-  nightElfSeal,
-  neutralSeal,
-  miscSeal,
-} from '@renderer/resources';
+import { FactionDetails, Faction } from '@renderer/generated/generated';
 
-function mapDispatchToProps(dispatch) {
-  const {
-    unitActions: { setUnits },
-  } = actions;
+const useStyles = makeStyles((theme: Theme) => ({
+  img: {
+    width: '5rem',
+    height: '5rem',
+  },
+  listItemText: {
+    marginLeft: '1rem',
+    textAlign: 'center',
+  },
+}));
 
-  return {
-    actions: {
-      setUnits: bindActionCreators(setUnits, dispatch),
-    },
-  };
+export interface NavigationListProps {
+  factions: FactionDetails[];
+  onSelectFaction: (faction: Faction) => void;
 }
 
-function mapStateToProps(state, props) {
-  return {
-    ...props,
-  };
-}
+const NavigationList = ({ factions, onSelectFaction }: NavigationListProps) => {
+  const classes = useStyles();
 
-interface Props extends ReturnType<typeof mapDispatchToProps> {}
+  return (
+    <List component="nav">
+      {factions.map((faction) => {
+        const { name, image } = faction;
+        return (
+          <ListItem
+            button={true}
+            key={name}
+            onClick={() => onSelectFaction(faction.name)}
+          >
+            <img src={image} className={classes.img} />
+            <ListItemText
+              className={classes.listItemText}
+              primary={changecase.sentenceCase(name)}
+              primaryTypographyProps={{ variant: 'subtitle1' }}
+            />
+          </ListItem>
+        );
+      })}
+    </List>
+  );
+};
 
-const navigationData = [
-  { data: humanUnits, name: 'Human', seal: humanSeal },
-  { data: orcUnits, name: 'Orc', seal: orcSeal },
-  { data: undeadUnits, name: 'Undead', seal: undeadSeal },
-  { data: nightElfUnits, name: 'Night Elf', seal: nightElfSeal },
-  { data: neutralUnits, name: 'Neutral', seal: neutralSeal },
-  { data: miscellaneous, name: 'Misc', seal: miscSeal },
-];
-
-class NavigationList extends React.Component<Props> {
-  public componentDidMount() {
-    const {
-      actions: { setUnits },
-    } = this.props;
-    setUnits(navigationData[0].data);
-  }
-
-  public render() {
-    const {
-      actions: { setUnits },
-    } = this.props;
-    return (
-      <List component="nav">
-        {navigationData.map((navData) => {
-          const { data, name, seal } = navData;
-          return (
-            <ListItem button={true} key={name} onClick={() => setUnits(data)}>
-              <img src={seal} style={{ width: '4em', height: '4em' }} />
-              <ListItemText primary={name} primaryTypographyProps={{ variant: 'subheading' }} />
-            </ListItem>
-          );
-        })}
-      </List>
-    );
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(NavigationList);
+export default NavigationList;

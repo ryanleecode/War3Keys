@@ -1,44 +1,53 @@
-import { format } from 'url';
+import * as url from 'url';
 import {
   default as installExtension,
   REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS,
 } from 'electron-devtools-installer';
-
-import { BrowserWindow, app } from 'electron';
+import ElectronContextMenu from 'electron-context-menu';
+import ElectronDebug from 'electron-debug';
+import { BrowserWindow, app, Menu } from 'electron';
 import * as path from 'path';
+import { initSplashScreen, OfficeTemplate } from 'electron-splashscreen';
+import isDev from 'electron-is-dev';
+import {
+  createSchemaLink,
+  createIpcExecutor,
+} from 'graphql-transport-electron';
+import { ipcMain } from 'electron';
+import { createSchema } from './server';
+import { createConnection } from 'typeorm';
+import { dbOptions } from './db.config';
 
-const isDevelopment = process.env.NODE_ENV !== 'production';
+declare const __static: string;
 
-if (isDevelopment) {
-  require('electron-context-menu')({
-    prepend: (params, browserWindow) => [
-      {
-        label: 'Rainbow',
-        visible: params.mediaType === 'image',
-      },
-    ],
+if (isDev) {
+  ElectronContextMenu({
+    prepend: () => [],
   });
-  require('electron-debug')({ devToolsMode: 'undocked' });
+  ElectronDebug({ devToolsMode: 'undocked' });
 }
 
-let mainWindow;
+let mainWindow: BrowserWindow | null;
 
 async function createMainWindow() {
   const window = new BrowserWindow({
     webPreferences: {
-      webSecurity: false,
+      nodeIntegration: true,
     },
     show: false,
+    minWidth: 560,
+    minHeight: 300,
   });
-  if (isDevelopment) {
+
+  if (isDev) {
     await installExtension(REACT_DEVELOPER_TOOLS);
     await installExtension(REDUX_DEVTOOLS);
     window.webContents.openDevTools();
     window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`);
   } else {
     window.loadURL(
-      format({
+      url.format({
         pathname: path.join(__dirname, 'index.html'),
         protocol: 'file',
         slashes: true,
@@ -77,22 +86,36 @@ app.on('browser-window-created', (e, window) => {
 });
 
 app.on('ready', async () => {
+  if (!isDev) {
+    Menu.setApplicationMenu(null);
+  }
+  const dbPath = !isDev
+    ? app.getAppPath().replace('app.asar', 'war3keys.sqlite')
+    : path.join(__dirname, '..', '..', 'war3keys.sqlite');
+  const connection = await createConnection(dbOptions(dbPath, isDev));
+  const em = connection.createEntityManager();
+
+  const schema = createSchema(em);
+  const link = createSchemaLink({ schema, context: () => ({}) });
+  createIpcExecutor({ link, ipc: ipcMain });
+
   mainWindow = await createMainWindow();
-  const splash = new BrowserWindow({
-    title: 'War3Keys',
-    width: 300,
-    height: 350,
+  const hideSplashscreen = initSplashScreen({
+    mainWindow,
+    url: OfficeTemplate,
+    width: 500,
+    height: 300,
+    productName: 'War3Keys',
+    icon: path.join(__static, 'icon.png'),
+    website: 'github.com/drdgvhbh/War3Keys',
+    text: 'Initializing ...',
   });
-  splash.loadURL(
-    format({
-      pathname: path.join(__dirname, 'splash.html'),
-      protocol: 'file',
-      slashes: true,
-    }),
-  );
 
   mainWindow.once('ready-to-show', () => {
-    splash.destroy();
-    mainWindow.show();
+    mainWindow!.show();
+    if (!isDev) {
+      mainWindow!.removeMenu();
+    }
+    hideSplashscreen();
   });
 });

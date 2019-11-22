@@ -1,12 +1,12 @@
 {
-  "parser": "typescript",
-  "arrowParens": "always",
-  "semi": true,
   "useTabs": false,
+  "printWidth": 80,
   "tabWidth": 2,
-  "bracketSpacing": true,
   "singleQuote": true,
+  "semi": true,
+  "trailingComma": "all",
   "jsxBracketSameLine": false,
-  "printWidth": 100,
-  "trailingComma": "all"
+  "arrowParens": "always",
+  "endOfLine": "lf",
+  "parser": "typescript"
 }
