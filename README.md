@@ -8,6 +8,8 @@
 
 War3Keys is an Electron application that allows you to set *custom* hotkeys in [Warcraft III: The Frozen Throne](https://en.wikipedia.org/wiki/Warcraft_III:_The_Frozen_Throne) without having to manually edit the `CustomKeys.txt` file.
 
+**Note the list of hotkeys are still incomplete, more to come soon!**
+
 ## Releases
 
 You can find the latest release on the [releases](https://github.com/drdgvhbh/War3Keys/releases) tab. Mac is untested because I don't have a Mac. You can try building from source.
