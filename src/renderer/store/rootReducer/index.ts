@@ -1,11 +1,16 @@
 import { combineReducers } from 'redux';
-import { unitReducer, unitActions } from './units';
+import { factionReducer, factionActions } from './faction';
+import { overridesReducer, overridesActions, overridesEpic } from './overrides';
+import { combineEpics } from 'redux-observable';
 
-const rootReducer = combineReducers({ unitReducer });
+export const rootReducer = combineReducers({
+  faction: factionReducer,
+  overrides: overridesReducer,
+});
 
-const actions = {
-  unitActions,
+export const rootEpic = combineEpics(overridesEpic);
+
+export const actions = {
+  factionActions,
+  overridesActions,
 };
-
-export { actions };
-export default rootReducer;

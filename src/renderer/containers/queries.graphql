@@ -1,0 +1,25 @@
+query Factions {
+  Factions {
+    name
+    image
+  }
+}
+
+query Units($faction: Faction) {
+  Units(faction: $faction) {
+    name
+    image
+    abilities {
+      id
+      name
+      image
+      hotkey
+    }
+    unabilities {
+      id
+      name
+      image
+      hotkey
+    }
+  }
+}

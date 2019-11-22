@@ -1,25 +1,17 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import store, { history } from './store';
-import { default as Amplify, Auth } from 'aws-amplify';
-import { default as AWSAppSyncClient, AUTH_TYPE } from 'aws-appsync/lib';
+import { createAppStore } from './store';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
-import { default as appSyncConfig } from './AppSync';
 import { Provider } from 'react-redux';
-import { ApolloProvider } from 'react-apollo';
-import { ConnectedRouter } from 'connected-react-router';
-import Rehydrated from './Rehydrated';
-import awsExports from './aws-exports';
-import { HotkeyGraphQLProvider } from './components/context';
 import Shell from './Shell';
-
-// Importing this using import statements will break TypeScript
-// tslint:disable-next-line:variable-name
-const Flexbox = require('flexbox-react').default;
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ipcRenderer } from 'electron';
+import { createIpcLink } from 'graphql-transport-electron';
+import { ApolloProvider } from '@apollo/react-hooks';
+import { actions } from '@renderer/store';
 
 import './global.scss';
-
-Amplify.configure(awsExports);
 
 const theme = createMuiTheme({
   palette: {
@@ -33,37 +25,28 @@ const theme = createMuiTheme({
       light: '#ffffff',
       dark: '#babdbe',
     },
+    text: {
+      primary: '#000000',
+      secondary: '#FFFFFF',
+    },
   },
 });
 
-const { graphqlEndpoint, region } = appSyncConfig;
-const client = new AWSAppSyncClient({
-  region,
-  url: graphqlEndpoint,
-  auth: {
-    type: AUTH_TYPE.AMAZON_COGNITO_USER_POOLS,
-    jwtToken: async () => (await Auth.currentSession()).getIdToken().getJwtToken(),
-  },
-  disableOffline: true,
+const link = createIpcLink({ ipc: ipcRenderer });
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link,
 });
+
+const store = createAppStore();
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
-    <ApolloProvider client={client as any} >
-      <Rehydrated>
-        <Provider store={store}>
-          <HotkeyGraphQLProvider>
-            <ConnectedRouter history={history}>
-              <Flexbox flexDirection="column" minHeight="100vh" alignItems="stretch" >
-                <Flexbox flexGrow={1}>
-                  <Shell />
-                </Flexbox>
-              </Flexbox>
-            </ConnectedRouter>
-          </HotkeyGraphQLProvider>
-        </Provider>
-      </Rehydrated>
-    </ApolloProvider>
+    <Provider store={store}>
+      <ApolloProvider client={client}>
+        <Shell />
+      </ApolloProvider>
+    </Provider>
   </MuiThemeProvider>,
   document.getElementById('app'),
 );

@@ -1,0 +1,42 @@
+enum Faction {
+  Human
+  Orc
+  Undead
+  NightElf
+  Neutral
+  Misc
+}
+
+type UnAbility {
+  id: String!
+  name: String!
+  image: String!
+  hotkey: String!
+}
+
+type Ability {
+  id: String!
+  name: String!
+  image: String!
+  hotkey: String!
+}
+
+type Unit {
+  name: String!
+  image: String!
+  faction: Faction!
+  isHero: Boolean!
+  isBuilding: Boolean!
+  abilities: [Ability!]!
+  unabilities: [UnAbility!]!
+}
+
+type FactionDetails {
+  name: Faction!
+  image: String!
+}
+
+type Query {
+  Factions: [FactionDetails!]!
+  Units(faction: Faction): [Unit!]!
+}
