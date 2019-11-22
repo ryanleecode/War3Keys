@@ -4,6 +4,8 @@
 
 [![snapcraft](https://file.globalupload.io/6QPqD5pi9x.png)](https://snapcraft.io/war3keys)
 
+![app-image](https://i.imgur.com/kxhULWb.jpg)
+
 War3Keys is an Electron application that allows you to set *custom* hotkeys in [Warcraft III: The Frozen Throne](https://en.wikipedia.org/wiki/Warcraft_III:_The_Frozen_Throne) without having to manually edit the `CustomKeys.txt` file.
 
 ## Releases
@@ -38,5 +40,16 @@ There are a number of problems with this. Namely, its not user friendly and its 
 nvm use 12
 yarn # You must use yarn
 npx ts-node ./scripts/regenerate-database.ts
+yarn codegen
 yarn dist:all
 ```
+
+## Built with
+
+* Electron
+* Graphql over IPC
+* TypeORM
+* SQlite3
+* React
+* Redux
+* Rxjs
