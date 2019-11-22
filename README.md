@@ -1,5 +1,7 @@
 # War3Keys
 
+[![Build Status](https://travis-ci.com/drdgvhbh/War3Keys.svg?branch=master)](https://travis-ci.com/drdgvhbh/War3Keys)
+
 [![snapcraft](https://file.globalupload.io/6QPqD5pi9x.png)](https://snapcraft.io/war3keys)
 
 War3Keys is an Electron application that allows you to set *custom* hotkeys in [Warcraft III: The Frozen Throne](https://en.wikipedia.org/wiki/Warcraft_III:_The_Frozen_Throne) without having to manually edit the `CustomKeys.txt` file.
