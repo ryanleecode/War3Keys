@@ -6,6 +6,10 @@
 
 War3Keys is an Electron application that allows you to set *custom* hotkeys in [Warcraft III: The Frozen Throne](https://en.wikipedia.org/wiki/Warcraft_III:_The_Frozen_Throne) without having to manually edit the `CustomKeys.txt` file.
 
+## Releases
+
+You can find the latest release on the [releases](https://github.com/drdgvhbh/War3Keys/releases) tab. Mac is untested because I don't have a Mac. You can try building from source.
+
 ## Motivation
 
 Having hotkeys on the left side of the keyboard is a necessity for any *real-time strategy* game. When [Blizzard](https://en.wikipedia.org/wiki/Blizzard_Entertainment) made Warcraft III back in the early 2000s, they did not consider this and place their hotkeys all over the keyboard.
@@ -27,10 +31,6 @@ Researchbuttonpos=1,0
 ```
 
 There are a number of problems with this. Namely, its not user friendly and its a one massive file (1000+ lines). War3Keys solves all these problems by giving users a graphical interface to set custom hotkeys..
-
-## Releases
-
-You can find the latest release on the [releases](https://github.com/drdgvhbh/War3Keys/releases) tab. This application supports **Windows** and **Linux** only.
 
 ## Building From Source
 
