@@ -60,13 +60,17 @@ export const exportHotkeysEpic = (
         const overrides = overridesSelector(state);
         const ws = fs.createWriteStream(filePath);
         for (const [abilityId, override] of Object.entries(overrides)) {
-          ws.write(`[${abilityId}]\n`);
+          const keyValues = override.additionalOverrides;
           if (override.hotkey) {
-            ws.write(`Hotkey=${override.hotkey}\n`);
-            ws.write(`Researchhotkey=${override.hotkey}\n`);
+            keyValues['Hotkey'] = override.hotkey;
+            keyValues['Researchhotkey'] = override.hotkey;
           }
           if (override.unhotKey) {
-            ws.write(`Unhotkey=${override.unhotKey}\n`);
+            keyValues['Unhotkey'] = override.unhotKey;
+          }
+          ws.write(`[${abilityId}]\n`);
+          for (const [k, v] of Object.entries(keyValues)) {
+            ws.write(`${k}=${v}\n`);
           }
           ws.write(`\n`);
         }
