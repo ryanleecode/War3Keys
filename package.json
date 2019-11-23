@@ -1,6 +1,6 @@
 {
   "name": "war3keys",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Warcraft 3 Hotkeys Manager",
   "main": "src/main/main.js",
   "private": true,
