@@ -4,6 +4,11 @@ import produce from 'immer';
 export interface Override {
   hotkey?: string;
   unhotKey?: string;
+  additionalOverrides: Record<string, string>;
+}
+
+function NewOverride(): Override {
+  return { additionalOverrides: {} };
 }
 
 export const initialState = {} as Record<string, Override>;
@@ -14,7 +19,7 @@ export const reducer = produce((draft: State, action: fromActions.Actions) => {
     case fromActions.OVERRIDE_HOTKEY: {
       const { abilityId, hotkey } = action.payload;
       if (!draft[abilityId]) {
-        draft[abilityId] = {};
+        draft[abilityId] = NewOverride();
       }
       draft[abilityId].hotkey = hotkey.toUpperCase();
       break;
@@ -23,7 +28,7 @@ export const reducer = produce((draft: State, action: fromActions.Actions) => {
     case fromActions.OVERRIDE_UNHOTKEY: {
       const { abilityId, unhotkey } = action.payload;
       if (!draft[abilityId]) {
-        draft[abilityId] = {};
+        draft[abilityId] = NewOverride();
       }
       draft[abilityId].unhotKey = unhotkey.toUpperCase();
       break;
@@ -38,7 +43,7 @@ export const reducer = produce((draft: State, action: fromActions.Actions) => {
       for (const hotkeyOverride of hotkeyOverrides) {
         const abilityId = hotkeyOverride.ability_id;
         if (!draft[abilityId]) {
-          draft[abilityId] = {};
+          draft[abilityId] = NewOverride();
         }
 
         for (const override of hotkeyOverride.overrides) {
@@ -46,9 +51,10 @@ export const reducer = produce((draft: State, action: fromActions.Actions) => {
           const value = override[1];
           if (key === 'Hotkey') {
             draft[abilityId].hotkey = value.toUpperCase();
-          }
-          if (key === 'Unhotkey') {
+          } else if (key === 'Unhotkey') {
             draft[abilityId].unhotKey = value.toUpperCase();
+          } else {
+            draft[abilityId].additionalOverrides[key] = value;
           }
         }
       }
