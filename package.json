@@ -75,7 +75,7 @@
     "@graphql-codegen/typescript": "1.8.3",
     "@graphql-codegen/typescript-operations": "1.8.3",
     "@graphql-codegen/typescript-react-apollo": "1.8.3",
-    "@graphql-codegen/typescript-resolvers": "1.8.3",
+    "@graphql-codegen/typescript-resolvers": "1.11.0",
     "@types/change-case": "^2.3.1",
     "@types/cheerio": "^0.22.14",
     "@types/electron-debug": "^1.1.0",
