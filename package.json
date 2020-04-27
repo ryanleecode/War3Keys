@@ -151,7 +151,7 @@
     "redux-observable": "^1.2.0",
     "rxjs": "^6.5.3",
     "source-map-support": "^0.5.9",
-    "sqlite3": "^4.1.0",
+    "sqlite3": "^4.2.0",
     "tslib": "^1.10.0",
     "typeorm": "^0.2.20"
   },
